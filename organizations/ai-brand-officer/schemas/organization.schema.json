@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "organization.schema.json",
+  "title": "品AI品牌官组织配置",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "organizationId",
+    "displayName",
+    "deploymentMode",
+    "directory",
+    "rootControllerRegistration",
+    "peerOrganizationCalls",
+    "coreSkills",
+    "publicCapabilities"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "organizationId": {
+      "type": "string",
+      "const": "ai-brand-officer"
+    },
+    "displayName": {
+      "type": "string",
+      "const": "品AI品牌官"
+    },
+    "deploymentMode": {
+      "type": "string",
+      "const": "same_project_organization_module"
+    },
+    "directory": {
+      "type": "string",
+      "const": "organizations/ai-brand-officer"
+    },
+    "rootControllerRegistration": {
+      "type": "string",
+      "const": "registered_designing"
+    },
+    "peerOrganizationCalls": {
+      "type": "string",
+      "const": "contract_only"
+    },
+    "coreSkills": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-positioning"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌定位"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-visual"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌视觉"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-communication"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌传播"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        }
+      ],
+      "items": false
+    },
+    "publicCapabilities": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "maturity",
+            "reference"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "public.promotional-poster"
+            },
+            "maturity": {
+              "type": "string",
+              "const": "formal"
+            },
+            "reference": {
+              "type": "string",
+              "const": "skills/creating-promotional-posters/SKILL.md"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "maturity",
+            "reference"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "public.taobao-ecommerce-image-set"
+            },
+            "maturity": {
+              "type": "string",
+              "const": "pilot"
+            },
+            "reference": {
+              "type": "string",
+              "const": "workflows/TAOBAO_ECOMMERCE_IMAGE_SET_PILOT.md"
+            }
+          }
+        }
+      ],
+      "items": false
+    }
+  }
+}

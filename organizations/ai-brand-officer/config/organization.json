@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "organizationId": "ai-brand-officer",
+  "displayName": "品AI品牌官",
+  "deploymentMode": "same_project_organization_module",
+  "directory": "organizations/ai-brand-officer",
+  "rootControllerRegistration": "registered_designing",
+  "peerOrganizationCalls": "contract_only",
+  "coreSkills": [
+    {
+      "id": "brand-positioning",
+      "name": "品牌定位",
+      "status": "pilot"
+    },
+    {
+      "id": "brand-visual",
+      "name": "品牌视觉",
+      "status": "pilot"
+    },
+    {
+      "id": "brand-communication",
+      "name": "品牌传播",
+      "status": "pilot"
+    }
+  ],
+  "publicCapabilities": [
+    {
+      "id": "public.promotional-poster",
+      "maturity": "formal",
+      "reference": "skills/creating-promotional-posters/SKILL.md"
+    },
+    {
+      "id": "public.taobao-ecommerce-image-set",
+      "maturity": "pilot",
+      "reference": "workflows/TAOBAO_ECOMMERCE_IMAGE_SET_PILOT.md"
+    }
+  ]
+}

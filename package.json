@@ -1,0 +1,13 @@
+{
+  "name": "dfmh-pinpaiguan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "帮助企业完成品牌定位、品牌视觉与品牌传播，形成长期品牌资产。",
+  "scripts": {
+    "test": "node verify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

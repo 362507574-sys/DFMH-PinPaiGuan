@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-candidate-review.schema.json",
+  "title": "AI Brand Officer Trusted Candidate Review",
+  "description": "reviewHash、planHash、evidenceHash 与 candidateHash 都是确定性内容指纹，不是签名或真实性证明；真实性来自可信运行时注入、完整证据复验、候选内容复验与审核人绑定。",
+  "x-runtimeConstraints": [
+    "independent-reviewers",
+    "trusted-context-revalidation",
+    "full-evidence-validation",
+    "candidate-hash-correspondence",
+    "candidate-identity-and-skill-correspondence",
+    "reviewer-binding-correspondence",
+    "different-review-and-reviewer-ids",
+    "hard-veto-overrides-score",
+    "score-exact-thousandths",
+    "canonical-array-order",
+    "verdict-replayed-from-review-trace",
+    "content-hash-not-signature"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verdict",
+    "score",
+    "hardVetoes",
+    "failedCriteria",
+    "correctionTargets",
+    "reviewTrace",
+    "candidateId",
+    "taskIdentity",
+    "skillId",
+    "planHash",
+    "evidenceHash",
+    "candidateHash",
+    "reviewHash"
+  ],
+  "properties": {
+    "verdict": {
+      "enum": [
+        "preferred",
+        "candidate_ready",
+        "rework",
+        "eliminated"
+      ]
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "multipleOf": 0.001
+    },
+    "hardVetoes": {
+      "$ref": "#/$defs/hardVetoes"
+    },
+    "failedCriteria": {
+      "$ref": "#/$defs/uniqueReadableTexts"
+    },
+    "correctionTargets": {
+      "$ref": "#/$defs/uniqueReadableTexts"
+    },
+    "reviewTrace": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/ruleReviewTrace"
+        },
+        {
+          "$ref": "#/$defs/professionalReviewTrace"
+        }
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reviewId": {
+            "$ref": "#/$defs/safeId"
+          },
+          "reviewerId": {
+            "$ref": "#/$defs/safeId"
+          },
+          "reviewerRole": {
+            "enum": [
+              "rule-engine",
+              "brand-professional-reviewer"
+            ]
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "failedCriteria": {
+            "$ref": "#/$defs/uniqueReadableTexts"
+          },
+          "hardVetoes": {
+            "$ref": "#/$defs/hardVetoes"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "multipleOf": 0.001
+          },
+          "observations": {
+            "$ref": "#/$defs/readableTexts"
+          },
+          "correctionTargets": {
+            "$ref": "#/$defs/uniqueReadableTexts"
+          }
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/ruleReviewTrace"
+          },
+          {
+            "$ref": "#/$defs/professionalReviewTrace"
+          }
+        ]
+      },
+      "allOf": [
+        {
+          "contains": {
+            "required": [
+              "reviewerRole"
+            ],
+            "properties": {
+              "reviewerRole": {
+                "const": "rule-engine"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "reviewerRole"
+            ],
+            "properties": {
+              "reviewerRole": {
+                "const": "brand-professional-reviewer"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "candidateId": {
+      "$ref": "#/$defs/safeId"
+    },
+    "taskIdentity": {
+      "$ref": "#/$defs/taskIdentity"
+    },
+    "skillId": {
+      "$ref": "#/$defs/skillId"
+    },
+    "planHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "evidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "candidateHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "reviewHash": {
+      "$ref": "#/$defs/sha256",
+      "description": "确定性内容指纹；不是数字签名，不证明审核者真实性。"
+    }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "not": {
+        "pattern": "^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$"
+      },
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[.]$"
+          }
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "skillId": {
+      "enum": [
+        "brand-positioning",
+        "brand-visual",
+        "brand-communication"
+      ]
+    },
+    "taskIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "taskId"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "taskId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "hardVetoCode": {
+      "enum": [
+        "product-fidelity-failure",
+        "person-fidelity-failure",
+        "logo-fidelity-failure",
+        "precise-text-error",
+        "core-message-missed",
+        "positioning-conflict",
+        "similarity-or-copyright-risk",
+        "unreadable-critical-information",
+        "ai-artifact-or-cheap-template",
+        "forbidden-style-direction"
+      ]
+    },
+    "hardVetoes": {
+      "type": "array",
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/hardVetoCode"
+      }
+    },
+    "readableTexts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "pattern": "\\S"
+      }
+    },
+    "uniqueReadableTexts": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "pattern": "\\S"
+      }
+    },
+    "ruleReviewTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewId",
+        "reviewerId",
+        "reviewerRole",
+        "passed",
+        "failedCriteria",
+        "hardVetoes"
+      ],
+      "properties": {
+        "reviewId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reviewerId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reviewerRole": {
+          "const": "rule-engine"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "failedCriteria": {
+          "$ref": "#/$defs/uniqueReadableTexts"
+        },
+        "hardVetoes": {
+          "$ref": "#/$defs/hardVetoes"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "passed"
+            ],
+            "properties": {
+              "passed": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "failedCriteria": {
+                "maxItems": 0
+              },
+              "hardVetoes": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "passed"
+            ],
+            "properties": {
+              "passed": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "anyOf": [
+              {
+                "properties": {
+                  "failedCriteria": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "hardVetoes": {
+                    "minItems": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "professionalReviewTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewId",
+        "reviewerId",
+        "reviewerRole",
+        "passed",
+        "score",
+        "observations",
+        "correctionTargets"
+      ],
+      "properties": {
+        "reviewId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reviewerId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reviewerRole": {
+          "const": "brand-professional-reviewer"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "multipleOf": 0.001
+        },
+        "observations": {
+          "$ref": "#/$defs/readableTexts"
+        },
+        "correctionTargets": {
+          "$ref": "#/$defs/uniqueReadableTexts"
+        }
+      }
+    }
+  }
+}

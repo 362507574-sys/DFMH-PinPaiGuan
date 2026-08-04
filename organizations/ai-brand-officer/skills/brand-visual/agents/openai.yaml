@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌视觉"
+  short_description: "把品牌定位转化为可识别、可复用和可长期管理的视觉体系候选"
+  default_prompt: "使用 $brand-visual 为当前品牌形成有定位依据的视觉策略与应用候选。"

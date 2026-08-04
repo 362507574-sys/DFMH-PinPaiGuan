@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "organizations": [
+    {
+      "id": "ai-brand-officer",
+      "displayName": "AI品牌官",
+      "aliases": [
+        "品AI品牌官",
+        "品牌官"
+      ],
+      "systemName": "品牌增长系统",
+      "status": "designing",
+      "acceptsFormalTasks": false,
+      "directory": "organizations/ai-brand-officer",
+      "coreSkills": [
+        {
+          "id": "brand-positioning",
+          "name": "品牌定位",
+          "status": "designing"
+        },
+        {
+          "id": "brand-visual",
+          "name": "品牌视觉",
+          "status": "designing"
+        },
+        {
+          "id": "brand-communication",
+          "name": "品牌传播",
+          "status": "designing"
+        }
+      ]
+    }
+  ]
+}

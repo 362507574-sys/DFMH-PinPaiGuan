@@ -1,0 +1,807 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-deliverable-package.schema.json",
+  "title": "AI Brand Officer Candidate Deliverable Package",
+  "description": "Strict two-layer candidate package. It is not a publication record and grants no shared-artifact authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "humanSummary",
+    "systemPackage",
+    "sha256"
+  ],
+  "properties": {
+    "humanSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conclusion",
+        "basis",
+        "limitations",
+        "nextStep"
+      ],
+      "properties": {
+        "conclusion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "basis": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "description": "Deterministically de-duplicated summary items. When source items overflow, the final item states the omitted count.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "maxItems": 100,
+          "description": "Deterministically de-duplicated summary items. When source items overflow, the final item states the omitted count.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "nextStep": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      }
+    },
+    "systemPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "artifactVersion",
+        "artifactStatus",
+        "lifecycleStatus",
+        "taskIdentity",
+        "skillId",
+        "selectedModuleIds",
+        "candidateId",
+        "planHash",
+        "evidenceHash",
+        "candidateHash",
+        "reviewHash",
+        "debugStateHash",
+        "baseCandidateHash",
+        "executionContextCommitment",
+        "deliveryContextCommitment",
+        "policyContextHash",
+        "output",
+        "evidenceRefs",
+        "upstreamArtifacts",
+        "review",
+        "businessContent",
+        "downstreamInstructions",
+        "eliminationAndReworkHistory",
+        "nextOrganizationRecommendation",
+        "debugTrace"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "artifactVersion": {
+          "const": 1
+        },
+        "artifactStatus": {
+          "const": "organization_candidate"
+        },
+        "lifecycleStatus": {
+          "const": "candidate_ready"
+        },
+        "taskIdentity": {
+          "$ref": "#/$defs/taskIdentity"
+        },
+        "skillId": {
+          "enum": [
+            "brand-positioning",
+            "brand-visual",
+            "brand-communication"
+          ]
+        },
+        "selectedModuleIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/moduleId"
+          }
+        },
+        "candidateId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "planHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "evidenceHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "reviewHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "debugStateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "baseCandidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "executionContextCommitment": {
+          "$ref": "#/$defs/sha256"
+        },
+        "deliveryContextCommitment": {
+          "$ref": "#/$defs/sha256"
+        },
+        "policyContextHash": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "output": {
+          "$ref": "#/$defs/candidateOutput"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/evidenceRef"
+          }
+        },
+        "upstreamArtifacts": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/artifactRef"
+          }
+        },
+        "review": {
+          "$ref": "#/$defs/reviewSummary"
+        },
+        "businessContent": {
+          "$ref": "#/$defs/businessContent"
+        },
+        "downstreamInstructions": {
+          "$ref": "#/$defs/downstreamInstructions"
+        },
+        "eliminationAndReworkHistory": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/reworkHistory"
+          }
+        },
+        "nextOrganizationRecommendation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/organizationRecommendation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "debugTrace": {
+          "$ref": "#/$defs/debugTrace"
+        }
+      }
+    },
+    "sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "not": {
+        "pattern": "^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$"
+      },
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[.]$"
+          }
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "taskIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "taskId"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "taskId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "moduleId": {
+      "enum": [
+        "category-positioning",
+        "audience-positioning",
+        "differentiation-positioning",
+        "mindshare-occupation",
+        "visual-identity-system",
+        "store-identity",
+        "poster-art-direction",
+        "product-packaging",
+        "ai-visual-generation",
+        "content-communication",
+        "brand-campaign",
+        "brand-story",
+        "founder-ip-communication"
+      ]
+    },
+    "candidateOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "candidateHash",
+        "contentSha256",
+        "contentJson"
+      ],
+      "properties": {
+        "candidateId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "candidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contentSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contentJson": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 1048576,
+          "contentMediaType": "application/json"
+        }
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "category",
+        "sourceRef",
+        "confidence"
+      ],
+      "properties": {
+        "evidenceId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "category": {
+          "enum": [
+            "upstream-artifact",
+            "feishu",
+            "conversation",
+            "public-web",
+            "professional-judgment",
+            "inference",
+            "assumption",
+            "unknown"
+          ]
+        },
+        "sourceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "confidence": {
+          "enum": [
+            "confirmed",
+            "supported",
+            "provisional",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "version",
+        "sha256",
+        "sourceOrganizationId"
+      ],
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceOrganizationId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "reviewSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "verdict",
+        "score",
+        "hardVetoes",
+        "failedCriteria",
+        "correctionTargets",
+        "reviewHash"
+      ],
+      "properties": {
+        "candidateId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "verdict": {
+          "enum": [
+            "preferred",
+            "candidate_ready"
+          ]
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hardVetoes": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "failedCriteria": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "correctionTargets": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "reviewHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "businessEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "category",
+        "claim",
+        "sourceRef",
+        "confidence"
+      ],
+      "properties": {
+        "evidenceId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "category": {
+          "enum": [
+            "upstream-artifact",
+            "feishu",
+            "conversation",
+            "public-web",
+            "professional-judgment",
+            "inference",
+            "assumption",
+            "unknown"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "sourceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "confidence": {
+          "enum": [
+            "confirmed",
+            "supported",
+            "provisional",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "textArray": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4000
+      }
+    },
+    "nonEmptyTextArray": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/textArray"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "businessContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facts",
+        "judgments",
+        "assumptions",
+        "unknowns",
+        "businessConclusion",
+        "recommendedCandidate",
+        "confirmedConclusions",
+        "riskNotes",
+        "decisionRequests"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/businessEvidence"
+          }
+        },
+        "judgments": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/businessEvidence"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/businessEvidence"
+          }
+        },
+        "unknowns": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/businessEvidence"
+          }
+        },
+        "businessConclusion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "recommendedCandidate": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "confirmedConclusions": {
+          "$ref": "#/$defs/nonEmptyTextArray"
+        },
+        "riskNotes": {
+          "$ref": "#/$defs/textArray"
+        },
+        "decisionRequests": {
+          "$ref": "#/$defs/textArray"
+        }
+      }
+    },
+    "downstreamInstructions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mustPreserve",
+        "mayAdapt",
+        "forbiddenChanges"
+      ],
+      "properties": {
+        "mustPreserve": {
+          "$ref": "#/$defs/nonEmptyTextArray"
+        },
+        "mayAdapt": {
+          "$ref": "#/$defs/textArray"
+        },
+        "forbiddenChanges": {
+          "$ref": "#/$defs/nonEmptyTextArray"
+        }
+      }
+    },
+    "organizationRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "organizationId",
+        "reason"
+      ],
+      "properties": {
+        "organizationId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      }
+    },
+    "reworkHistory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewHash",
+        "candidateId",
+        "verdict",
+        "failedCriteria",
+        "hardVetoes",
+        "correctionTargets",
+        "affectedModuleIds",
+        "requiresBusinessDecision",
+        "blockedReason",
+        "remainingRisks",
+        "requestedBusinessInput",
+        "roundId",
+        "treatmentId",
+        "validationVerdict"
+      ],
+      "properties": {
+        "reviewHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidateId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "verdict": {
+          "enum": [
+            "rework",
+            "eliminated"
+          ]
+        },
+        "failedCriteria": {
+          "$ref": "#/$defs/textArray"
+        },
+        "hardVetoes": {
+          "$ref": "#/$defs/textArray"
+        },
+        "correctionTargets": {
+          "$ref": "#/$defs/textArray"
+        },
+        "affectedModuleIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/moduleId"
+          }
+        },
+        "requiresBusinessDecision": {
+          "type": "boolean"
+        },
+        "blockedReason": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "remainingRisks": {
+          "$ref": "#/$defs/textArray"
+        },
+        "requestedBusinessInput": {
+          "$ref": "#/$defs/textArray"
+        },
+        "roundId": {
+          "$ref": "#/$defs/nullableSafeId"
+        },
+        "treatmentId": {
+          "$ref": "#/$defs/nullableSafeId"
+        },
+        "validationVerdict": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "nullableSha256": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullableSafeId": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/safeId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "debugTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "revision",
+        "stateHash",
+        "stateSha256",
+        "stateJson",
+        "attemptedCorrectionCount",
+        "timeline"
+      ],
+      "properties": {
+        "status": {
+          "const": "candidate_ready"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "stateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "stateSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "stateJson": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 4194304,
+          "contentMediaType": "application/json"
+        },
+        "attemptedCorrectionCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "timeline": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/debugTraceEntry"
+          }
+        }
+      }
+    },
+    "debugTraceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "at",
+        "eventType",
+        "fromStatus",
+        "toStatus",
+        "eventHash",
+        "reviewHash",
+        "candidateHash",
+        "rootCauseFingerprint",
+        "roundId"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "eventType": {
+          "enum": [
+            "start-planning",
+            "plan-ready",
+            "evidence-ready",
+            "execution-ready",
+            "review-started",
+            "review-passed",
+            "review-failed",
+            "rework-ready",
+            "block",
+            "return-to-control-center",
+            "transient-failure",
+            "transient-recovered"
+          ]
+        },
+        "fromStatus": {
+          "$ref": "#/$defs/debugStatus"
+        },
+        "toStatus": {
+          "$ref": "#/$defs/debugStatus"
+        },
+        "eventHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "reviewHash": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "candidateHash": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "rootCauseFingerprint": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "roundId": {
+          "$ref": "#/$defs/nullableSafeId"
+        }
+      }
+    },
+    "debugStatus": {
+      "enum": [
+        "received",
+        "planning",
+        "collecting_evidence",
+        "executing",
+        "reviewing",
+        "reworking",
+        "candidate_ready",
+        "blocked",
+        "returned_to_control_center"
+      ]
+    }
+  },
+  "x-runtimeConstraints": [
+    "packageBrandDeliverable must invoke the complete Task2 plan, Task3 evidence, Task4 review, and Task5 debug-state validators with trusted runtime bindings before packaging",
+    "Only preferred or candidate_ready Task4 reviews and a candidate_ready Task5 state may be packaged; blocked, eliminated, rework, reviewing, and returned states are rejected",
+    "planHash, evidenceHash, candidateHash, reviewHash, debugStateHash, task identity, skill identity, selected modules, exact artifact versions, and the final passing timeline event must agree",
+    "sha256 is a deterministic content fingerprint over humanSummary and systemPackage and is not a signature, authorization token, approval, or publication receipt",
+    "The packager has no filesystem side effects and must not write shared-artifacts, outputs, manifests, current-version pointers, registries, routers, or root runtime state",
+    "Candidate content is preserved losslessly as canonical contentJson with contentSha256 and an enforced 1048576-byte UTF-8 runtime budget so the schema remains strict without inventing a fourth skill-specific output shape",
+    "Terminal recovery must validate stateJson and replay the complete package against the currently trusted plan, evidence, candidate, review, debug chain, and delivery context",
+    "baseCandidateHash and normalized delivery context derive executionContextCommitment; the runtime injects it into the reserved candidate content field before recomputing candidateHash, so Task4 reviewHash and the Task5 candidate timeline provide the external anchor",
+    "deliveryContextCommitment binds every normalized business context field to task identity, skillId, planHash, evidenceHash, baseCandidateHash, anchored candidateHash, reviewHash, and the independently persisted execution context commitment"
+  ]
+}

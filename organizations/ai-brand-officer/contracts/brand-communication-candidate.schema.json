@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.ai-brand-officer/contracts/brand-communication-candidate.schema.json",
+  "title": "Brand Communication Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidateId",
+    "taskId",
+    "enterpriseId",
+    "businessProjectId",
+    "skillId",
+    "content",
+    "candidateHash"
+  ],
+  "properties": {
+    "candidateId": { "$ref": "#/$defs/safeId" },
+    "taskId": { "$ref": "#/$defs/safeId" },
+    "enterpriseId": { "$ref": "#/$defs/safeId" },
+    "businessProjectId": { "$ref": "#/$defs/safeId" },
+    "skillId": { "const": "brand-communication" },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "messageHierarchy",
+        "contentPillars",
+        "proofLibrary",
+        "brandStory",
+        "founderIpPosition",
+        "campaignMotherIdea",
+        "toneAndVoice",
+        "forbiddenClaims",
+        "visualBindings",
+        "channelAdaptationBoundary"
+      ],
+      "properties": {
+        "messageHierarchy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["coreMessage", "supportMessages", "trustReasons"],
+          "properties": {
+            "coreMessage": { "$ref": "#/$defs/claim" },
+            "supportMessages": { "$ref": "#/$defs/nonEmptyClaimArray" },
+            "trustReasons": { "$ref": "#/$defs/nonEmptyClaimArray" }
+          }
+        },
+        "contentPillars": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pillarId",
+              "title",
+              "purpose",
+              "claimKey",
+              "claimDigest",
+              "evidenceIds",
+              "status"
+            ],
+            "properties": {
+              "pillarId": { "$ref": "#/$defs/safeId" },
+              "title": { "$ref": "#/$defs/text" },
+              "purpose": { "$ref": "#/$defs/claimText" },
+              "claimKey": { "$ref": "#/$defs/safeId" },
+              "claimDigest": { "$ref": "#/$defs/optionalClaimDigest" },
+              "evidenceIds": { "$ref": "#/$defs/evidenceIds" },
+              "status": { "$ref": "#/$defs/claimStatus" }
+            },
+            "allOf": [
+              { "$ref": "#/$defs/confirmedClaimDigest" }
+            ]
+          }
+        },
+        "proofLibrary": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "proofId",
+              "claimKey",
+              "claim",
+              "claimDigest",
+              "evidenceIds",
+              "status"
+            ],
+            "properties": {
+              "proofId": { "$ref": "#/$defs/safeId" },
+              "claimKey": { "$ref": "#/$defs/safeId" },
+              "claim": { "$ref": "#/$defs/claimText" },
+              "claimDigest": { "$ref": "#/$defs/optionalClaimDigest" },
+              "evidenceIds": { "$ref": "#/$defs/evidenceIds" },
+              "status": { "$ref": "#/$defs/claimStatus" }
+            },
+            "allOf": [
+              { "$ref": "#/$defs/confirmedClaimDigest" }
+            ]
+          }
+        },
+        "brandStory": {
+          "$ref": "#/$defs/storyAssertion"
+        },
+        "founderIpPosition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "position",
+            "viewpointBoundaries",
+            "claims"
+          ],
+          "properties": {
+            "status": { "$ref": "#/$defs/assertionStatus" },
+            "position": { "$ref": "#/$defs/text" },
+            "viewpointBoundaries": {
+              "$ref": "#/$defs/nonEmptyTextArray"
+            },
+            "claims": { "$ref": "#/$defs/claimArray" }
+          }
+        },
+        "campaignMotherIdea": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "theme", "idea", "factualClaims"],
+          "properties": {
+            "status": { "$ref": "#/$defs/assertionStatus" },
+            "theme": { "$ref": "#/$defs/text" },
+            "idea": { "$ref": "#/$defs/text" },
+            "factualClaims": { "$ref": "#/$defs/claimArray" }
+          }
+        },
+        "toneAndVoice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["principles", "preferredTerms", "forbiddenTerms"],
+          "properties": {
+            "principles": { "$ref": "#/$defs/nonEmptyTextArray" },
+            "preferredTerms": { "$ref": "#/$defs/nonEmptyTextArray" },
+            "forbiddenTerms": { "$ref": "#/$defs/nonEmptyTextArray" }
+          }
+        },
+        "forbiddenClaims": {
+          "$ref": "#/$defs/nonEmptyTextArray"
+        },
+        "visualBindings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "artifactRefs"],
+          "properties": {
+            "status": {
+              "enum": ["bound", "not-applicable", "pending"]
+            },
+            "artifactRefs": {
+              "type": "array",
+              "maxItems": 10,
+              "items": { "$ref": "#/$defs/artifactRef" }
+            }
+          }
+        },
+        "channelAdaptationBoundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "brandOfficer",
+            "growthStrategist",
+            "dealOfficer"
+          ],
+          "properties": {
+            "brandOfficer": { "$ref": "#/$defs/text" },
+            "growthStrategist": { "$ref": "#/$defs/text" },
+            "dealOfficer": { "$ref": "#/$defs/text" }
+          }
+        }
+      }
+    },
+    "candidateHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "not": {
+        "pattern": "^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$"
+      },
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[.]$"
+          }
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "^\\S(?:[\\s\\S]*\\S)?$"
+    },
+    "claimText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "description": "Claim text is normalized by the semantic validator with NFKC, trim, and whitespace collapsing before comparison and digesting."
+    },
+    "nonEmptyTextArray": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/text" }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/safeId" }
+    },
+    "claimStatus": {
+      "enum": ["confirmed", "provisional", "unknown"]
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claimKey",
+        "claim",
+        "claimDigest",
+        "evidenceIds",
+        "status"
+      ],
+      "properties": {
+        "claimKey": { "$ref": "#/$defs/safeId" },
+        "claim": { "$ref": "#/$defs/claimText" },
+        "claimDigest": { "$ref": "#/$defs/optionalClaimDigest" },
+        "evidenceIds": { "$ref": "#/$defs/evidenceIds" },
+        "status": { "$ref": "#/$defs/claimStatus" }
+      },
+      "allOf": [
+        { "$ref": "#/$defs/confirmedClaimDigest" }
+      ]
+    },
+    "confirmedClaimDigest": {
+      "if": {
+        "properties": {
+          "status": { "const": "confirmed" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "claimDigest": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "optionalClaimDigest": {
+      "oneOf": [
+        { "$ref": "#/$defs/sha256" },
+        { "type": "null" }
+      ]
+    },
+    "claimArray": {
+      "type": "array",
+      "maxItems": 50,
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "nonEmptyClaimArray": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "assertionStatus": {
+      "enum": [
+        "confirmed",
+        "provisional",
+        "unknown",
+        "not-applicable"
+      ]
+    },
+    "storyAssertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "narrative", "claims"],
+      "properties": {
+        "status": { "$ref": "#/$defs/assertionStatus" },
+        "narrative": { "$ref": "#/$defs/text" },
+        "claims": { "$ref": "#/$defs/claimArray" }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "version",
+        "sha256",
+        "sourceOrganizationId"
+      ],
+      "properties": {
+        "artifactId": { "$ref": "#/$defs/safeId" },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "sourceOrganizationId": { "$ref": "#/$defs/safeId" }
+      }
+    }
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ai-brand-officer/brand-visual-candidate.schema.json",
+  "title": "AI品牌官品牌视觉候选",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidateId",
+    "taskId",
+    "enterpriseId",
+    "businessProjectId",
+    "skillId",
+    "content",
+    "candidateHash"
+  ],
+  "properties": {
+    "candidateId": {
+      "$ref": "#/$defs/safeId"
+    },
+    "taskId": {
+      "$ref": "#/$defs/safeId"
+    },
+    "enterpriseId": {
+      "$ref": "#/$defs/safeId"
+    },
+    "businessProjectId": {
+      "$ref": "#/$defs/safeId"
+    },
+    "skillId": {
+      "const": "brand-visual"
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "brandId",
+        "selectedModuleIds",
+        "directionCandidates",
+        "pairwiseDifferenceEvidence",
+        "aestheticProfileRef",
+        "publicCapabilityHandoffs"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "brandId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "selectedModuleIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "visual-identity-system",
+              "store-identity",
+              "poster-art-direction",
+              "product-packaging",
+              "ai-visual-generation"
+            ]
+          }
+        },
+        "directionCandidates": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/direction"
+            },
+            {
+              "$ref": "#/$defs/direction"
+            },
+            {
+              "$ref": "#/$defs/direction"
+            }
+          ],
+          "items": false
+        },
+        "pairwiseDifferenceEvidence": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/pairwiseDifference"
+          }
+        },
+        "aestheticProfileRef": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/aestheticProfileRef"
+            }
+          ]
+        },
+        "publicCapabilityHandoffs": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/publicCapabilityHandoff"
+          }
+        }
+      }
+    },
+    "candidateHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9](?:[a-z0-9._-]{0,126}[a-z0-9])?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "version",
+        "sha256",
+        "sourceOrganizationId"
+      ],
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceOrganizationId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "direction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directionId"
+      ],
+      "properties": {
+        "directionId": {
+          "enum": [
+            "direction-01",
+            "direction-02",
+            "direction-03"
+          ]
+        },
+        "assetRef": {
+          "$ref": "#/$defs/artifactRef"
+        },
+        "imageSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "assetRef"
+          ],
+          "not": {
+            "required": [
+              "imageSha256"
+            ]
+          }
+        },
+        {
+          "required": [
+            "imageSha256"
+          ],
+          "not": {
+            "required": [
+              "assetRef"
+            ]
+          }
+        }
+      ]
+    },
+    "pairwiseDifference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directionIds",
+        "dimensions"
+      ],
+      "properties": {
+        "directionIds": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "direction-01",
+              "direction-02",
+              "direction-03"
+            ]
+          }
+        },
+        "dimensions": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "composition",
+              "crop",
+              "lighting",
+              "color",
+              "typography",
+              "material",
+              "whitespace",
+              "information-density",
+              "graphic-language",
+              "image-language"
+            ]
+          }
+        }
+      }
+    },
+    "importSnapshotRef": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/artifactRef"
+        }
+      ]
+    },
+    "aestheticProfileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "brandId",
+        "artifactId",
+        "version",
+        "sha256",
+        "importSnapshotRef"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "brandId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "artifactId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "importSnapshotRef": {
+          "$ref": "#/$defs/importSnapshotRef"
+        }
+      }
+    },
+    "registryRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "versionOrHash",
+        "sha256",
+        "readAt"
+      ],
+      "properties": {
+        "path": {
+          "const": "public-skills/registry.json"
+        },
+        "versionOrHash": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "readAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "controllerTaskAuthorizationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "taskId",
+        "contextVersion",
+        "projectFileSha256",
+        "commanderTaskId"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "taskId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "contextVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "projectFileSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "commanderTaskId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "publicCapabilityHandoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registryRef",
+        "publicSkillId",
+        "capabilityId",
+        "maturity",
+        "allowedOrganizations",
+        "controllerTaskAuthorizationRef",
+        "authorized",
+        "decision"
+      ],
+      "properties": {
+        "registryRef": {
+          "$ref": "#/$defs/registryRef"
+        },
+        "publicSkillId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "capabilityId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "maturity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "allowedOrganizations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/safeId"
+          }
+        },
+        "controllerTaskAuthorizationRef": {
+          "$ref": "#/$defs/controllerTaskAuthorizationRef"
+        },
+        "authorized": {
+          "const": true
+        },
+        "decision": {
+          "const": "allow-formal-execution"
+        }
+      }
+    }
+  }
+}

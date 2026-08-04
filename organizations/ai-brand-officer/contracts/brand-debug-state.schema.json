@@ -1,0 +1,538 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-debug-state.schema.json",
+  "title": "AI Brand Officer Trusted Debug State",
+  "description": "本 Schema 只负责结构校验（structural only）；可信完整状态原子存储、Task4 审核与诊断解析、根因推导和三阶段治疗规则只能由异步 validate/advance 运行时执行。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskIdentity",
+    "skillId",
+    "planHash",
+    "evidenceHash",
+    "createdAt",
+    "revision",
+    "previousStateHash",
+    "status",
+    "rootCauseAttempts",
+    "transientAttempts",
+    "activeCorrection",
+    "attemptedCorrections",
+    "timeline",
+    "blockedReport",
+    "stateHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "taskIdentity": {
+      "$ref": "#/$defs/taskIdentity"
+    },
+    "skillId": {
+      "enum": [
+        "brand-positioning",
+        "brand-visual",
+        "brand-communication"
+      ]
+    },
+    "planHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "evidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "previousStateHash": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "received",
+        "planning",
+        "collecting_evidence",
+        "executing",
+        "reviewing",
+        "reworking",
+        "candidate_ready",
+        "blocked",
+        "returned_to_control_center"
+      ]
+    },
+    "rootCauseAttempts": {
+      "$ref": "#/$defs/rootCauseAttemptMap"
+    },
+    "transientAttempts": {
+      "$ref": "#/$defs/transientAttemptMap"
+    },
+    "activeCorrection": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/activeCorrection"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attemptedCorrections": {
+      "type": "array",
+      "maxItems": 300,
+      "items": {
+        "$ref": "#/$defs/appliedCorrection"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "$ref": "#/$defs/timelineEvent"
+      }
+    },
+    "blockedReport": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/blockedReport"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stateHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "not": {
+        "pattern": "^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$"
+      },
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[.]$"
+          }
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "normalizedText2000": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "pattern": "^\\S(?:[\\s\\S]*\\S)?$"
+    },
+    "normalizedText4000": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "^\\S(?:[\\s\\S]*\\S)?$"
+    },
+    "taskIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "taskId"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "taskId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "received",
+        "planning",
+        "collecting_evidence",
+        "executing",
+        "reviewing",
+        "reworking",
+        "candidate_ready",
+        "blocked",
+        "returned_to_control_center"
+      ]
+    },
+    "moduleId": {
+      "enum": [
+        "category-positioning",
+        "audience-positioning",
+        "differentiation-positioning",
+        "mindshare-occupation",
+        "visual-identity-system",
+        "store-identity",
+        "poster-art-direction",
+        "product-packaging",
+        "ai-visual-generation",
+        "content-communication",
+        "brand-campaign",
+        "brand-story",
+        "founder-ip-communication"
+      ]
+    },
+    "affectedModuleIds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/moduleId"
+      }
+    },
+    "rootCauseAttemptMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "maxProperties": 100,
+      "patternProperties": {
+        "^[a-f0-9]{64}$": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      }
+    },
+    "transientAttemptMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "maxProperties": 100,
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9._-]{0,127}$": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      }
+    },
+    "activeCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roundId",
+        "rootCauseFingerprint",
+        "rootCauseCode",
+        "treatmentId",
+        "actionHash",
+        "inputCandidateHash",
+        "affectedModuleIds",
+        "correction",
+        "plannedAt"
+      ],
+      "properties": {
+        "roundId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "rootCauseFingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rootCauseCode": {
+          "$ref": "#/$defs/safeId"
+        },
+        "treatmentId": {
+          "enum": [
+            "local-correction",
+            "module-rebuild",
+            "method-or-path-switch"
+          ]
+        },
+        "actionHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "inputCandidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "affectedModuleIds": {
+          "$ref": "#/$defs/affectedModuleIds"
+        },
+        "correction": {
+          "$ref": "#/$defs/normalizedText4000"
+        },
+        "plannedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "appliedCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roundId",
+        "rootCauseFingerprint",
+        "rootCauseCode",
+        "treatmentId",
+        "actionHash",
+        "inputCandidateHash",
+        "affectedModuleIds",
+        "correction",
+        "plannedAt",
+        "appliedAt",
+        "outputCandidateHash",
+        "executionEvidence",
+        "validatedByReviewHash",
+        "validationVerdict"
+      ],
+      "properties": {
+        "roundId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "rootCauseFingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rootCauseCode": {
+          "$ref": "#/$defs/safeId"
+        },
+        "treatmentId": {
+          "enum": [
+            "local-correction",
+            "module-rebuild",
+            "method-or-path-switch"
+          ]
+        },
+        "actionHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "inputCandidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "affectedModuleIds": {
+          "$ref": "#/$defs/affectedModuleIds"
+        },
+        "correction": {
+          "$ref": "#/$defs/normalizedText4000"
+        },
+        "plannedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "appliedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outputCandidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "executionEvidence": {
+          "$ref": "#/$defs/sha256"
+        },
+        "validatedByReviewHash": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validationVerdict": {
+          "anyOf": [
+            {
+              "enum": [
+                "preferred",
+                "candidate_ready",
+                "rework",
+                "eliminated",
+                "failed-different-root-cause"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "timelineEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "at",
+        "eventType",
+        "fromStatus",
+        "toStatus",
+        "previousEventHash",
+        "eventHash"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "eventType": {
+          "enum": [
+            "start-planning",
+            "plan-ready",
+            "evidence-ready",
+            "execution-ready",
+            "review-started",
+            "review-passed",
+            "review-failed",
+            "rework-ready",
+            "block",
+            "return-to-control-center",
+            "transient-failure",
+            "transient-recovered"
+          ]
+        },
+        "fromStatus": {
+          "$ref": "#/$defs/status"
+        },
+        "toStatus": {
+          "$ref": "#/$defs/status"
+        },
+        "previousEventHash": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eventHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "pattern": "^\\S(?:[\\s\\S]*\\S)?$"
+        },
+        "reviewHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidateId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "reviewVerdict": {
+          "enum": [
+            "preferred",
+            "candidate_ready",
+            "rework",
+            "eliminated"
+          ]
+        },
+        "rootCauseFingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rootCauseCode": {
+          "$ref": "#/$defs/safeId"
+        },
+        "affectedModuleIds": {
+          "$ref": "#/$defs/affectedModuleIds"
+        },
+        "roundId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "outputCandidateHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "executionEvidence": {
+          "$ref": "#/$defs/sha256"
+        },
+        "transientCause": {
+          "$ref": "#/$defs/safeId"
+        },
+        "blockedReportHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "blockedReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blockedReason",
+        "attemptedCorrections",
+        "remainingRisks",
+        "requestedBusinessInput"
+      ],
+      "properties": {
+        "blockedReason": {
+          "$ref": "#/$defs/normalizedText4000"
+        },
+        "attemptedCorrections": {
+          "$comment": "运行时要求该数组与阻断发生时截至当时的全部 attemptedCorrections 规范数组完全一致，不能遗漏、增加或乱序。",
+          "type": "array",
+          "maxItems": 300,
+          "items": {
+            "$ref": "#/$defs/appliedCorrection"
+          }
+        },
+        "remainingRisks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/normalizedText2000"
+          }
+        },
+        "requestedBusinessInput": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/normalizedText2000"
+          }
+        }
+      }
+    }
+  },
+  "x-runtimeConstraints": [
+    "schema-structural-only",
+    "trusted-full-state-atomic-store",
+    "trusted-review-resolver",
+    "trusted-diagnostic-modules",
+    "three-stage-treatment",
+    "timeline-state-machine-replay",
+    "event-hash-chain",
+    "state-hash-covers-all-other-fields",
+    "three-applied-rounds",
+    "root-cause-derived",
+    "review-hash-unique",
+    "candidate-output-must-change",
+    "candidate-lineage-unique",
+    "blocked-report-complete-history",
+    "different-root-cause-does-not-count",
+    "task4-review-revalidated"
+  ]
+}

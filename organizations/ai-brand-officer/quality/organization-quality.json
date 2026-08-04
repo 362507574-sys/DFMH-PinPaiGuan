@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "organizationId": "ai-brand-officer",
+  "declaredRootStatus": "designing",
+  "acceptsFormalTasks": false,
+  "skills": [
+    {
+      "id": "brand-positioning",
+      "skillPath": "organizations/ai-brand-officer/skills/brand-positioning/SKILL.md",
+      "workflowPath": "organizations/ai-brand-officer/workflows/BRAND_POSITIONING_PILOT.md",
+      "runtimePaths": [
+        "organizations/ai-brand-officer/scripts/brand_task_planner.mjs",
+        "organizations/ai-brand-officer/scripts/brand_project_workspace.mjs",
+        "organizations/ai-brand-officer/scripts/brand_contracts.mjs"
+      ],
+      "testPaths": [
+        "organizations/ai-brand-officer/tests/brand_positioning_skill.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_project_workspace.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_contracts.test.mjs"
+      ],
+      "evidenceLevel": "simulation",
+      "knownGaps": [
+        "尚未完成真实企业定位任务验收",
+        "根权威仍为 designing，禁止正式接单"
+      ],
+      "nextGate": "完成真实企业内部定位任务、修改反馈、下游精确复用和异常恢复验证"
+    },
+    {
+      "id": "brand-visual",
+      "skillPath": "organizations/ai-brand-officer/skills/brand-visual/SKILL.md",
+      "workflowPath": "organizations/ai-brand-officer/workflows/BRAND_VISUAL_PILOT.md",
+      "runtimePaths": [
+        "organizations/ai-brand-officer/scripts/brand_task_planner.mjs",
+        "organizations/ai-brand-officer/scripts/brand_project_workspace.mjs",
+        "organizations/ai-brand-officer/scripts/brand_contracts.mjs"
+      ],
+      "testPaths": [
+        "organizations/ai-brand-officer/tests/brand_visual_skill.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_project_workspace.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_contracts.test.mjs"
+      ],
+      "evidenceLevel": "simulation",
+      "knownGaps": [
+        "尚未完成真实企业视觉资产任务验收",
+        "尚未取得正式生产文件与长期应用反馈"
+      ],
+      "nextGate": "完成真实企业定位依赖、真实素材、三方向选择、公共能力回收和返修恢复验证"
+    },
+    {
+      "id": "brand-communication",
+      "skillPath": "organizations/ai-brand-officer/skills/brand-communication/SKILL.md",
+      "workflowPath": "organizations/ai-brand-officer/workflows/BRAND_COMMUNICATION_PILOT.md",
+      "runtimePaths": [
+        "organizations/ai-brand-officer/scripts/brand_task_planner.mjs",
+        "organizations/ai-brand-officer/scripts/brand_project_workspace.mjs",
+        "organizations/ai-brand-officer/scripts/brand_contracts.mjs"
+      ],
+      "testPaths": [
+        "organizations/ai-brand-officer/tests/brand_communication_skill.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_project_workspace.test.mjs",
+        "organizations/ai-brand-officer/tests/brand_contracts.test.mjs"
+      ],
+      "evidenceLevel": "simulation",
+      "knownGaps": [
+        "尚未完成真实企业传播任务验收",
+        "尚未完成与增长官、成交官的真实业务回传闭环"
+      ],
+      "nextGate": "完成真实企业传播任务及增长官、成交官固定版本读取和回传验证"
+    }
+  ],
+  "fast": {
+    "boundedDispatch": true,
+    "reusesSharedRuntime": true,
+    "evidencePaths": [
+      "organizations/ai-brand-officer/scripts/brand_task_planner.mjs",
+      "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs"
+    ]
+  },
+  "accurate": {
+    "separatesEvidence": true,
+    "locksExactDependencies": true,
+    "hasQualityGate": true,
+    "evidencePaths": [
+      "organizations/ai-brand-officer/contracts/brand-evidence-bundle.schema.json",
+      "organizations/ai-brand-officer/contracts/brand-candidate-review.schema.json",
+      "organizations/ai-brand-officer/tests/brand_contracts.test.mjs",
+      "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs"
+    ]
+  },
+  "stable": {
+    "persistsState": true,
+    "idempotentResume": true,
+    "boundedRetry": true,
+    "evidencePaths": [
+      "organizations/ai-brand-officer/scripts/brand_project_workspace.mjs",
+      "organizations/ai-brand-officer/tests/brand_project_workspace.test.mjs",
+      "organizations/ai-brand-officer/workflows/BRAND_POSITIONING_PILOT.md",
+      "organizations/ai-brand-officer/workflows/BRAND_VISUAL_PILOT.md",
+      "organizations/ai-brand-officer/workflows/BRAND_COMMUNICATION_PILOT.md"
+    ]
+  },
+  "knownGaps": [
+    "三个技能当前证据等级均为 simulation，尚未完成真实企业验收",
+    "根权威状态仍为 designing 且 acceptsFormalTasks=false",
+    "组织间合同已有设计与模拟证据，但缺少真实企业的跨组织回传闭环"
+  ],
+  "nextOrganizationGate": "完成三个技能各自真实企业内部任务和一次跨组织闭环后，由根控制中心统一审查是否具备 operational 候选资格"
+}

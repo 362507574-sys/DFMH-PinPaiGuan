@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "organizationId": "ai-brand-officer",
+  "rootControllerRegistration": "registered_designing",
+  "capabilities": [
+    {
+      "id": "brand-positioning",
+      "name": "品牌定位",
+      "status": "pilot"
+    },
+    {
+      "id": "brand-visual",
+      "name": "品牌视觉",
+      "status": "pilot"
+    },
+    {
+      "id": "brand-communication",
+      "name": "品牌传播",
+      "status": "pilot"
+    }
+  ],
+  "paths": {
+    "enterpriseRoot": "brands/enterprises",
+    "tempRoot": "temp/positioning-jobs",
+    "outputRoot": "outputs"
+  },
+  "feishuKnowledgeWriteback": "disabled"
+}

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-officer.schema.json",
+  "title": "品AI品牌官能力配置",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "organizationId",
+    "rootControllerRegistration",
+    "capabilities",
+    "paths",
+    "feishuKnowledgeWriteback"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "organizationId": {
+      "type": "string",
+      "const": "ai-brand-officer"
+    },
+    "rootControllerRegistration": {
+      "type": "string",
+      "const": "registered_designing"
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-positioning"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌定位"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-visual"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌视觉"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "brand-communication"
+            },
+            "name": {
+              "type": "string",
+              "const": "品牌传播"
+            },
+            "status": {
+              "type": "string",
+              "const": "pilot"
+            }
+          }
+        }
+      ],
+      "items": false
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseRoot",
+        "tempRoot",
+        "outputRoot"
+      ],
+      "properties": {
+        "enterpriseRoot": {
+          "type": "string",
+          "const": "brands/enterprises"
+        },
+        "tempRoot": {
+          "type": "string",
+          "const": "temp/positioning-jobs"
+        },
+        "outputRoot": {
+          "type": "string",
+          "const": "outputs"
+        }
+      }
+    },
+    "feishuKnowledgeWriteback": {
+      "type": "string",
+      "const": "disabled"
+    }
+  }
+}

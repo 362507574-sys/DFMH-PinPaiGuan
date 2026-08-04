@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌传播"
+  short_description: "建立品牌信息体系、内容母题、故事、创始人IP与重大传播战役候选"
+  default_prompt: "使用 $brand-communication 为当前品牌建立有证据的传播体系与增长交接简报。"

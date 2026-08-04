@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "detailHeadings": [
+    "核心判断",
+    "深度分析",
+    "依据与边界",
+    "落地建议"
+  ],
+  "fourthLevelHeadings": {
+    "深度分析": [
+      "关键变量",
+      "推导逻辑"
+    ],
+    "依据与边界": [
+      "已知事实",
+      "待验证信息"
+    ],
+    "落地建议": [
+      "执行动作",
+      "验收指标",
+      "风险与停止条件"
+    ]
+  },
+  "organizations": [
+    {
+      "organizationId": "ai-brand-officer",
+      "displayName": "AI品牌官",
+      "systemName": "品牌增长系统",
+      "sourceImageSha256": "78332b5fb5f5eedd549e173e795a4acd889ea317022546db54cbd3cb34bd02c5",
+      "skills": [
+        {
+          "skillId": "brand-positioning",
+          "displayName": "品牌定位技能",
+          "outputTitle": "品牌定位",
+          "sections": [
+            "品类定位",
+            "用户定位",
+            "差异化定位",
+            "心智占位"
+          ]
+        },
+        {
+          "skillId": "brand-visual",
+          "displayName": "品牌视觉技能",
+          "outputTitle": "品牌视觉",
+          "sections": [
+            "品牌视觉体系",
+            "门店形象",
+            "海报设计",
+            "产品包装",
+            "AI视觉生成"
+          ]
+        },
+        {
+          "skillId": "brand-communication",
+          "displayName": "品牌传播技能",
+          "outputTitle": "品牌传播",
+          "sections": [
+            "内容传播",
+            "营销活动",
+            "品牌故事",
+            "创始人IP传播"
+          ]
+        }
+      ]
+    }
+  ]
+}

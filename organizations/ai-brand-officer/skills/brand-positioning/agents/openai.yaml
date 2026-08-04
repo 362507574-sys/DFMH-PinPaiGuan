@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌定位"
+  short_description: "诊断品牌现状并形成有证据的定位、价值主张和心智占位候选"
+  default_prompt: "使用 $brand-positioning 为当前企业形成有证据、可验证的品牌定位候选。"

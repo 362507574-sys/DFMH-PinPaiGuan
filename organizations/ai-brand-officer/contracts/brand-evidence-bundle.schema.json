@@ -1,0 +1,516 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-evidence-bundle.schema.json",
+  "title": "AI Brand Officer Evidence Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskIdentity",
+    "skillId",
+    "sourceOrder",
+    "feishuPreflight",
+    "authorizationContext",
+    "upstreamArtifacts",
+    "criticalUnknowns",
+    "entries",
+    "conflicts",
+    "limitations",
+    "blocked",
+    "evidenceHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "taskIdentity": {
+      "$ref": "#/$defs/taskIdentity"
+    },
+    "skillId": {
+      "enum": [
+        "brand-positioning",
+        "brand-visual",
+        "brand-communication"
+      ]
+    },
+    "sourceOrder": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "feishu"
+        },
+        {
+          "const": "conversation"
+        },
+        {
+          "const": "public-web"
+        }
+      ],
+      "items": false
+    },
+    "feishuPreflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptPath",
+        "receiptSha256",
+        "requestId",
+        "generatedAt",
+        "status",
+        "spaces",
+        "queries",
+        "sources",
+        "degradedReason"
+      ],
+      "properties": {
+        "receiptPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "receiptSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "matched",
+            "no_hit",
+            "degraded"
+          ]
+        },
+        "spaces": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/knowledgeSpace"
+          }
+        },
+        "queries": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "sources": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/knowledgeSource"
+          }
+        },
+        "degradedReason": {
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    },
+    "authorizationContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectContextVersion",
+        "readableArtifactsHash"
+      ],
+      "properties": {
+        "projectContextVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "readableArtifactsHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "upstreamArtifacts": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/artifactRef"
+      }
+    },
+    "criticalUnknowns": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "$ref": "#/$defs/criticalUnknown"
+      }
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 600,
+      "items": {
+        "$ref": "#/$defs/evidenceEntry"
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "conflictId",
+          "claimKey",
+          "evidenceIds",
+          "claims",
+          "resolutionStatus"
+        ],
+        "properties": {
+          "conflictId": {
+            "$ref": "#/$defs/safeId"
+          },
+          "claimKey": {
+            "$ref": "#/$defs/safeId"
+          },
+          "evidenceIds": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 500,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/safeId"
+            }
+          },
+          "claims": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 500,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            }
+          },
+          "resolutionStatus": {
+            "const": "unresolved"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "feishu-no-hit",
+          "feishu-degraded",
+          "critical-unknowns"
+        ]
+      }
+    },
+    "blocked": {
+      "type": "boolean"
+    },
+    "evidenceHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "safeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "not": {
+        "pattern": "^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$"
+      },
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[.]$"
+          }
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "taskIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enterpriseId",
+        "businessProjectId",
+        "taskId"
+      ],
+      "properties": {
+        "enterpriseId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "businessProjectId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "taskId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "version",
+        "sha256",
+        "sourceOrganizationId"
+      ],
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceOrganizationId": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "criticalUnknown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "criticalField",
+        "description",
+        "sourceRef"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/safeId"
+        },
+        "criticalField": {
+          "enum": [
+            "product-category",
+            "primary-audience",
+            "product-fidelity",
+            "human-identity",
+            "legal-field"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "sourceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "evidenceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "category",
+        "claim",
+        "sourceRef",
+        "confidence"
+      ],
+      "properties": {
+        "evidenceId": {
+          "$ref": "#/$defs/safeId"
+        },
+        "category": {
+          "enum": [
+            "upstream-artifact",
+            "feishu",
+            "conversation",
+            "public-web",
+            "professional-judgment",
+            "inference",
+            "assumption",
+            "unknown"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "sourceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "confidence": {
+          "enum": [
+            "confirmed",
+            "supported",
+            "provisional",
+            "unknown"
+          ]
+        },
+        "claimKey": {
+          "$ref": "#/$defs/safeId"
+        }
+      }
+    },
+    "knowledgeSpace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "spaceId"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "spaceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    "knowledgeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spaceName",
+        "title",
+        "url",
+        "token",
+        "docType",
+        "excerpt"
+      ],
+      "properties": {
+        "spaceName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "url": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "token": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "docType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1500
+        }
+      }
+    },
+    "knowledgeReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptPath",
+        "receiptSha256",
+        "requestId",
+        "generatedAt",
+        "status",
+        "spaces",
+        "queries",
+        "sources",
+        "degradedReason"
+      ],
+      "properties": {
+        "receiptPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "receiptSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "matched",
+            "no_hit",
+            "degraded"
+          ]
+        },
+        "spaces": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/knowledgeSpace"
+          }
+        },
+        "queries": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "sources": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/knowledgeSource"
+          }
+        },
+        "degradedReason": {
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    }
+  },
+  "x-runtimeConstraints": [
+    "skill-identity-bound: skillId is required, restricted to the three registered brand skills, retained in the bundle, and covered by evidenceHash for downstream reconciliation",
+    "receipt-revalidated-from-trusted-binding: build and independent validation re-read the task-scoped receipt from control-center trustedOptions and compare the complete normalized preflight",
+    "project-context-revalidated: build and independent validation re-check trusted project identity, context version, readable artifact hash, and exact artifact authorization",
+    "buildBrandEvidenceBundle reads a task-scoped receipt through an absolute projectRoot and verifies its receipt SHA-256 before JSON parsing",
+    "validateBrandEvidenceBundle requires a trusted projectContext and verifies identity, project context version, complete readable artifact hash, and exact authorized artifact metadata",
+    "receipt paths reject absolute paths, traversal, ADS, trailing-dot or trailing-space segments, symbolic links, reparse points, non-regular files, BOM content, and files larger than 1 MB",
+    "formal brand evidence permits only matched, no_hit, and degraded knowledge context statuses and derives Feishu entries only from receipt sources",
+    "public and Feishu URLs are reference-only secure public HTTPS values; no network fetch is performed",
+    "artifacts, critical unknowns, evidence entries, conflict groups, and conflicts use canonical ordering before hashing",
+    "limitations are the exact ordered subset of feishu-no-hit, feishu-degraded, and critical-unknowns derived from retained state",
+    "conflict resolutionStatus is always unresolved and conflicts are recomputed from retained evidence entries",
+    "snapshot limits are enforced incrementally before completing a full clone or serialization, and Proxy or accessor traps are never invoked"
+  ]
+}
