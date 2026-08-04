@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "repoName": "DFMH-PinPaiGuan",
+  "displayName": "AI品牌官",
+  "kind": "organization-package",
+  "maturity": "designing",
+  "fullSystemEquivalent": false,
+  "simulationLevel": "standalone-contract",
+  "primaryEntrypoints": [
+    "organizations/ai-brand-officer/AGENTS.md",
+    "organizations/ai-brand-officer/skills/brand-positioning/SKILL.md",
+    "organizations/ai-brand-officer/skills/brand-visual/SKILL.md",
+    "organizations/ai-brand-officer/skills/brand-communication/SKILL.md"
+  ],
+  "capabilities": [
+    "品牌定位：品类定位、用户定位、差异化定位、心智占位",
+    "品牌视觉：品牌视觉体系、门店形象、海报设计、产品包装、AI视觉生成",
+    "品牌传播：内容传播、营销活动、品牌故事、创始人IP传播"
+  ],
+  "externalRequirements": [
+    "Node.js 20 或更高版本，以及能够读取本地项目文件的 AI 工具。",
+    "使用者提供的真实企业、项目和任务资料；本仓库不附带任何客户数据。",
+    "需要最新市场、法规、平台或竞品事实时，由使用者环境提供可访问的网络检索能力。"
+  ],
+  "excludedPrivateDirectories": [
+    "temp",
+    "outputs",
+    "enterprises",
+    "issues",
+    "fixtures",
+    "tasks"
+  ],
+  "maxRelativePathLength": 120,
+  "acceptanceCommand": "npm test"
+}

@@ -5,17 +5,22 @@
   "displayName": "AI品牌官",
   "status": "designing",
   "acceptsFormalTasks": false,
-  "generatedAt": "2026-08-04T03:09:15.466Z",
+  "generatedAt": "2026-08-04T04:34:57.996Z",
   "files": [
     {
       "relativePath": ".dfmh-generated-package",
       "bytes": 25,
-      "sha256": "29b134e4a69c06db1f2ffb309fa33991e05c07c790f2e5c81ab3cd0c428de6da"
+      "sha256": "2c39acb8d754abae3a14f8ed7403ba9c76f2d97e9896bb44d0029c04c0fc8d2a"
     },
     {
       "relativePath": ".gitignore",
       "bytes": 102,
       "sha256": "42e5ab13aad1238474461ddb8281ec5371596547ab340f141cd0c6f648e2a05e"
+    },
+    {
+      "relativePath": "AGENTS.md",
+      "bytes": 2298,
+      "sha256": "3471cc709d38bce202ce8311b68487055649c011f10829b64210e4a78cdfb885"
     },
     {
       "relativePath": "control-center/registries/organization-output-standard.json",
@@ -26,6 +31,16 @@
       "relativePath": "control-center/registries/organizations.json",
       "bytes": 762,
       "sha256": "01d89ac5ea43954d8a04cae0f99eb4fd1e3043b52c4187cf5970e06e49f76372"
+    },
+    {
+      "relativePath": "examples/DELIVERABLE_CHECKLIST.md",
+      "bytes": 892,
+      "sha256": "56e22d206ec2ce9875ce4dc3b146dd58de44ef3558eabd8866a05dedcb4f5da1"
+    },
+    {
+      "relativePath": "examples/REQUEST.md",
+      "bytes": 1013,
+      "sha256": "823ecc97d34dd299b1cecd33e9d16ce29b58ceb9d4d8af10ad6285e62a463ec7"
     },
     {
       "relativePath": "LICENSE.md",
@@ -91,11 +106,6 @@
       "relativePath": "organizations/ai-brand-officer/DECISIONS.md",
       "bytes": 10302,
       "sha256": "d1b444080063426094c0c334a68c4360101d90f21fea24ee98cb25f1ddd4cd3c"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/decisions/protected-root-rebaseline/2026-07-28T04-08-20-643Z.json",
-      "bytes": 589,
-      "sha256": "77f4f0eccd40859daefa8b16e10e590923620ea44db1d026c8f209f8c61da0e6"
     },
     {
       "relativePath": "organizations/ai-brand-officer/ENVIRONMENT.md",
@@ -199,8 +209,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-communication/agents/openai.yaml",
-      "bytes": 277,
-      "sha256": "8d12058d9e75132b79860e807b0618e17c18a8a1e6d2f49e96fe30157b5e7971"
+      "bytes": 273,
+      "sha256": "ee9dbaaaf4fa8ca2dab7961429f3f07518b94218ed688efb3ddcf2b3909266c6"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-communication/assets/communication-brief-template.md",
@@ -239,8 +249,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/agents/openai.yaml",
-      "bytes": 264,
-      "sha256": "c5dcf6d21bbb494c7f37fb57f34030a46faff204b46512df1df629ebc5555f91"
+      "bytes": 260,
+      "sha256": "3834161738db1a9c167e4ceb0151eada566e20500b07a9c63fa050ff006b645a"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/assets/positioning-brief-template.md",
@@ -249,8 +259,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/references/capability-map.md",
-      "bytes": 2663,
-      "sha256": "e0c425808b3ceea94aa5637d70b76557e8b24d573e5a4f35ee3f5d130867ea0f"
+      "bytes": 2662,
+      "sha256": "81c16cd41401320c87313a4e3655c966e4ab82f98628f02e1590424087c05767"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/references/debugging-playbook.md",
@@ -269,8 +279,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/references/quality-rubric.md",
-      "bytes": 2187,
-      "sha256": "8334eda0a6a6db1aafe450597ba66a9303416d4d5f8320a174f4a4be002760d0"
+      "bytes": 2186,
+      "sha256": "8b8daa404a449e46153528ee358f00da603b5d37363462f578596d35c3c3af54"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/SKILL.md",
@@ -279,8 +289,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/agents/openai.yaml",
-      "bytes": 265,
-      "sha256": "0873dcc12d488da8c97045440bd74c32d1bd8fb5afdad2643f43f1d776ca2587"
+      "bytes": 261,
+      "sha256": "f3cb3df9b2b6d684337c7ba1ed7772986fcd6766ccd1f90235590cc1d6efb7c0"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/assets/aesthetic-profile-template.md",
@@ -314,8 +324,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/references/poster-quality-rubric.md",
-      "bytes": 10147,
-      "sha256": "49b27e252800cc043a2b1fe2b0322750884ad6d85aa3112c51cc4b8c9a3c8756"
+      "bytes": 10133,
+      "sha256": "4e6206d2050087ade6e11049876779b1af7b41de0f00c667e01d6aa83c3958fd"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/references/quality-rubric.md",
@@ -333,131 +343,6 @@
       "sha256": "823a516f29b4f20ecf971072d3f23dfc3879e8b1063825ee369ba221bea94226"
     },
     {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_communication_semantic_validator.test.mjs",
-      "bytes": 26640,
-      "sha256": "f8f798b7d504f6aff33d01f97179faae2da71f73aa3669a271e4d30e0f806569"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_communication_skill.test.mjs",
-      "bytes": 2793,
-      "sha256": "a82dbfdc240857db5dac2ee1ee39e433e658986399bc109e6ccff23bfc691444"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_communication_v2.test.mjs",
-      "bytes": 20038,
-      "sha256": "07bac224e3210c0901dd7bfb695efe44e7b82aeb1f82dc0b26d44e767fc7c878"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_contracts.test.mjs",
-      "bytes": 15159,
-      "sha256": "b13b2ce2b93d9028db80a78e6898a093ad641d58d238d5552c1bb474d4b8345d"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/BRAND_CORE_SKILLS_REAL_TASK_ACCEPTANCE.md",
-      "bytes": 5772,
-      "sha256": "09fe97251d0ab776f770ec9122df60bb38e77595fa38907c495efb640ce09f37"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_core_skills_v2_e2e.test.mjs",
-      "bytes": 29959,
-      "sha256": "aed3c70a1673c17d8bb532273e4099e0ec3e29b0f1de2980e4741cb7b8176737"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_debug_controller.test.mjs",
-      "bytes": 42310,
-      "sha256": "2910fc3695bdeea25c5938110723d3a297c19b885594a3d8d3c2a112fa7b818e"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_deliverable_packager.test.mjs",
-      "bytes": 23389,
-      "sha256": "28c8f0ead689d2976d3d56516004bb6f54308eb9ecc3659d37bec86d52f698c3"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_evidence_engine.test.mjs",
-      "bytes": 42756,
-      "sha256": "1374ccaa74dd2119140a9dc0dfe0e0c2987eac3011cfe7a0e6cc8e73736324b1"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_positioning_skill.test.mjs",
-      "bytes": 3346,
-      "sha256": "88779c745fae03d5d274123ad4f57e26de0165db147b4f97d977a3c7b094ef7c"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_positioning_v2.test.mjs",
-      "bytes": 12364,
-      "sha256": "43dd6383b7015c786fcc923bd83e6936d8c82657704169b083086298b729af33"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_project_workspace.test.mjs",
-      "bytes": 11304,
-      "sha256": "418aaa2964fb203ad336d89412e750561677a330c7a31099046eea03a9db59b6"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_quality_gate.test.mjs",
-      "bytes": 28803,
-      "sha256": "41e494d328ed965ae66ba3d5c8f0404403763391d477bc75858f99af5b9b7f8b"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_skill_runtime.test.mjs",
-      "bytes": 79232,
-      "sha256": "d285f543b5108633d9052a8cab59fc876da3e0c75013bbb14f080e4bce394329"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_task_planner.test.mjs",
-      "bytes": 36096,
-      "sha256": "cbc9a80da55bbf7eeaf7d164450babd2a673bb3cf9cb56c0d47812c4b5685507"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_visual_semantic_validator.test.mjs",
-      "bytes": 14547,
-      "sha256": "e9d16965740f965bd230eee9be3a104d731f89477ea994171d62dc0753fd749e"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_visual_skill.test.mjs",
-      "bytes": 4293,
-      "sha256": "073409b58514244f359b7e11448c5362078da8859391e3a666ddbee0a552eb79"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/brand_visual_v2.test.mjs",
-      "bytes": 16402,
-      "sha256": "e5d0a603430f0446904cf75170c4fc0fddc023ecc80107dc75f6e71e693723bb"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/helpers/brand_runtime_fixture.mjs",
-      "bytes": 2086,
-      "sha256": "da2dfa78ddf2f885a0f66eb39459f994a2646188e25e7f1755579400e940b70f"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/organization_config.test.mjs",
-      "bytes": 18280,
-      "sha256": "7a03c348f539621ddb0e07f06522ac5079946927b6256ab14514d041af82f039"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/organization_docs.test.mjs",
-      "bytes": 20756,
-      "sha256": "7bdbedcc26a35fddddf9c5c2528e76278119f1305fbbea749dc7f65a45b93362"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/organization_quality_standard.test.mjs",
-      "bytes": 7359,
-      "sha256": "2907b944ae24551bc71b89269ad313ed6ef4b9c4a81e69fe425f28ae1728a12b"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/organization_scope_guard.test.mjs",
-      "bytes": 25307,
-      "sha256": "82096d064caf75b90148dbf6793522ff36dbc49563f1a4986b1a80a70e63b87e"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/protected_root_rebaseline.test.mjs",
-      "bytes": 22329,
-      "sha256": "f3bd7fc513972da0e0677e90b2397cba8af5df25fb601561fca73cc3707df287"
-    },
-    {
-      "relativePath": "organizations/ai-brand-officer/tests/three_core_skills_integration.test.mjs",
-      "bytes": 7334,
-      "sha256": "e167109e9bf70981a1bea131c9bde703105606462a7fdad20d859f17d7caba24"
-    },
-    {
       "relativePath": "organizations/ai-brand-officer/TROUBLESHOOTING.md",
       "bytes": 6762,
       "sha256": "26f4ad6fa18aaf88289692f91195fcfbd26117f96230b7b67dd0b6f12884fc22"
@@ -469,8 +354,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/WORKFLOWS.md",
-      "bytes": 9840,
-      "sha256": "9f92c6c6bff0436738a1416c6dec30ef6a5e59fe5d648740b8d43b0e62721965"
+      "bytes": 9796,
+      "sha256": "13e495a672ced695daa32ae34f4f6d138d6f2e10d4d4a7cfbb51537542071b0d"
     },
     {
       "relativePath": "organizations/ai-brand-officer/workflows/BRAND_COMMUNICATION_PILOT.md",
@@ -494,8 +379,18 @@
     },
     {
       "relativePath": "package.json",
-      "bytes": 293,
-      "sha256": "e7226700e332dad373029899d7cfcdcce4a0223d677b21cd3eaf05d00eda91f2"
+      "bytes": 323,
+      "sha256": "f4348caaa08bc58cdb5c005498f150b3e58f1f41889275360d06e4362efc4d7f"
+    },
+    {
+      "relativePath": "PUBLIC_PACKAGE_CONTRACT.json",
+      "bytes": 1355,
+      "sha256": "6a5a1bdfeb4cce56513f1767130a5e3e528db24af0172fb1ea9b45285d672bca"
+    },
+    {
+      "relativePath": "public-simulation.mjs",
+      "bytes": 1909,
+      "sha256": "f3eb5b4618df72cd19e53c228c721f07f41f942e6f92eac9b66a24e7a77a8e82"
     },
     {
       "relativePath": "public-skills/registry.json",
@@ -503,9 +398,14 @@
       "sha256": "d7a731ef0190ae531517d837af1fac4518f903641a24f254a69f886bd03b56ae"
     },
     {
+      "relativePath": "QUICKSTART.md",
+      "bytes": 1105,
+      "sha256": "588c4c03496ea7d791dbbbf458416cd268444aeb88941fe5deb98dea818514d9"
+    },
+    {
       "relativePath": "README.md",
-      "bytes": 2422,
-      "sha256": "addfbc8b4e794118902d52493a05ab48ed656e19f4ad47692642a7136106bade"
+      "bytes": 2647,
+      "sha256": "8c51383a23dd55e2df80e2014f3532bd12a56c8a2d13b2a0fc99b49df229cdd9"
     },
     {
       "relativePath": "scripts/control-center/project_contract.mjs",
@@ -539,8 +439,8 @@
     },
     {
       "relativePath": "shared/FEISHU_KNOWLEDGE_PREFLIGHT_STANDARD.md",
-      "bytes": 3136,
-      "sha256": "2b08c8c0829acb5ef94265ad859b17ef840f75acd77dff4b89c4bea78b520599"
+      "bytes": 3135,
+      "sha256": "3cae425fc0a34be23c95f01c3ebd427bded67031e93d1cbac7836128cd7c0d04"
     },
     {
       "relativePath": "shared/IMAGE_GENERATION_CHANNEL_STANDARD.md",
@@ -549,8 +449,8 @@
     },
     {
       "relativePath": "shared/PRODUCT_ASSET_FIDELITY_STANDARD.md",
-      "bytes": 2693,
-      "sha256": "9bbdf364e69b457c655c7abca8eb959d8a646b0d9ae2aa6f18e0351f6bb1be0e"
+      "bytes": 2692,
+      "sha256": "9935d8ec802cf5f7d0e73be51cc85b58dbe0892b8c7622fed588181f30033e41"
     },
     {
       "relativePath": "verify.mjs",
