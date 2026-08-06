@@ -5,12 +5,12 @@
   "displayName": "AI品牌官",
   "status": "designing",
   "acceptsFormalTasks": false,
-  "generatedAt": "2026-08-04T04:34:57.996Z",
+  "generatedAt": "2026-08-06T01:27:44.689Z",
   "files": [
     {
       "relativePath": ".dfmh-generated-package",
       "bytes": 25,
-      "sha256": "2c39acb8d754abae3a14f8ed7403ba9c76f2d97e9896bb44d0029c04c0fc8d2a"
+      "sha256": "93fa1217ca47b535a3335bd2b114835834b5c0b6e0738170e388fe42fb4941a6"
     },
     {
       "relativePath": ".gitignore",
@@ -24,8 +24,8 @@
     },
     {
       "relativePath": "control-center/registries/organization-output-standard.json",
-      "bytes": 1633,
-      "sha256": "2168ae09e8336e246c38c13bcfe9c13c8eac52869579b2199690d2cb6b234a5e"
+      "bytes": 1358,
+      "sha256": "bf44301a314de7a8d9d6c648a2212c599949455ed6de3d38ca24b457a63f2a5d"
     },
     {
       "relativePath": "control-center/registries/organizations.json",
@@ -244,8 +244,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-communication/SKILL.md",
-      "bytes": 13311,
-      "sha256": "3b5383e1ddccf6936810a09f1ea6a2a72e757ca3174e87e30dca5fad1f4d47ea"
+      "bytes": 14807,
+      "sha256": "78b6a727d7acd5257d3c3446714c37f1d14f7e862ef11c831186afc93aa33295"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/agents/openai.yaml",
@@ -284,8 +284,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/SKILL.md",
-      "bytes": 8741,
-      "sha256": "c6dcd4f158555b3ae17446bfebe20b1b0d03579fa53b62d1dd238c2d26dda419"
+      "bytes": 10237,
+      "sha256": "4cb7d33d16d017d736ff2dab60c77df254a4a790247a1f1f18329de2d818799d"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/agents/openai.yaml",
@@ -334,8 +334,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/SKILL.md",
-      "bytes": 12010,
-      "sha256": "33f9cdf297b08b7b4c0a4503e43e9586e1e31a7a2ffd305e0f4b77f265067ebb"
+      "bytes": 13506,
+      "sha256": "dfbb5eebda0f1c42a9bc51a369e9715a4df99ad6c4a8efd08e365584d374f6f4"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/README.md",
@@ -405,7 +405,7 @@
     {
       "relativePath": "README.md",
       "bytes": 2647,
-      "sha256": "8c51383a23dd55e2df80e2014f3532bd12a56c8a2d13b2a0fc99b49df229cdd9"
+      "sha256": "f9ea35ad06ff992e259d1c043f2dd73dbd1008a14ad468ff7bb356fea113a861"
     },
     {
       "relativePath": "scripts/control-center/project_contract.mjs",
@@ -438,6 +438,11 @@
       "sha256": "1f93982959b4456ec8397dca0faedb7d89157ab788bd0fb656691d1a0dca9032"
     },
     {
+      "relativePath": "shared/CAPITAL_ASSET_PROCUREMENT_STANDARD.md",
+      "bytes": 4607,
+      "sha256": "3a3501e5a3b95fd49725ff95b3b386e6ba001566c3109051feb71c4160ae1483"
+    },
+    {
       "relativePath": "shared/FEISHU_KNOWLEDGE_PREFLIGHT_STANDARD.md",
       "bytes": 3135,
       "sha256": "3cae425fc0a34be23c95f01c3ebd427bded67031e93d1cbac7836128cd7c0d04"
@@ -446,6 +451,11 @@
       "relativePath": "shared/IMAGE_GENERATION_CHANNEL_STANDARD.md",
       "bytes": 4087,
       "sha256": "ea8510fb8c222b89c27c12d15809b8c6513f0e1ff3c52138abe5c4e4ac7fd10d"
+    },
+    {
+      "relativePath": "shared/ORGANIZATION_AI_WORK_OWNERSHIP_STANDARD.md",
+      "bytes": 4306,
+      "sha256": "2f9fce1d1e71d4b753e176f4db3cc44b658a97fbc16eb3caf8dc4370ff2e7e63"
     },
     {
       "relativePath": "shared/PRODUCT_ASSET_FIDELITY_STANDARD.md",
