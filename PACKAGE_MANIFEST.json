@@ -5,12 +5,12 @@
   "displayName": "AI品牌官",
   "status": "designing",
   "acceptsFormalTasks": false,
-  "generatedAt": "2026-08-06T01:27:44.689Z",
+  "generatedAt": "2026-08-06T01:58:33.762Z",
   "files": [
     {
       "relativePath": ".dfmh-generated-package",
       "bytes": 25,
-      "sha256": "93fa1217ca47b535a3335bd2b114835834b5c0b6e0738170e388fe42fb4941a6"
+      "sha256": "ccaad904295ef98e8bb63e78498a749e5d393632d415d94062967938423322cd"
     },
     {
       "relativePath": ".gitignore",
@@ -244,8 +244,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-communication/SKILL.md",
-      "bytes": 14807,
-      "sha256": "78b6a727d7acd5257d3c3446714c37f1d14f7e862ef11c831186afc93aa33295"
+      "bytes": 15359,
+      "sha256": "757773dd4a626ae79fce59ddf651cc829953bc0547e03e8215ac5d9df14fd2ff"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/agents/openai.yaml",
@@ -284,8 +284,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-positioning/SKILL.md",
-      "bytes": 10237,
-      "sha256": "4cb7d33d16d017d736ff2dab60c77df254a4a790247a1f1f18329de2d818799d"
+      "bytes": 10789,
+      "sha256": "e4c73cffcbf70408a56d0431651cd91a9e4fe1bc395e6703ffacf423d4fef854"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/agents/openai.yaml",
@@ -334,8 +334,8 @@
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/brand-visual/SKILL.md",
-      "bytes": 13506,
-      "sha256": "dfbb5eebda0f1c42a9bc51a369e9715a4df99ad6c4a8efd08e365584d374f6f4"
+      "bytes": 14058,
+      "sha256": "214f2e98e63574c3204c68cc1ba7b0a30d6030f7751113a0f8eb59a1c831b454"
     },
     {
       "relativePath": "organizations/ai-brand-officer/skills/README.md",
@@ -399,13 +399,13 @@
     },
     {
       "relativePath": "QUICKSTART.md",
-      "bytes": 1105,
-      "sha256": "588c4c03496ea7d791dbbbf458416cd268444aeb88941fe5deb98dea818514d9"
+      "bytes": 3389,
+      "sha256": "c676f658da8cff759aaadf24256aea3f25ecf94a57f0fd66903656ba42ae8a7a"
     },
     {
       "relativePath": "README.md",
-      "bytes": 2647,
-      "sha256": "f9ea35ad06ff992e259d1c043f2dd73dbd1008a14ad468ff7bb356fea113a861"
+      "bytes": 3366,
+      "sha256": "914cb0a89aa47729fa1dc5b5c4c22438712ab7b2daeea8172862b805f07a55ce"
     },
     {
       "relativePath": "scripts/control-center/project_contract.mjs",
